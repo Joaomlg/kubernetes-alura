@@ -1,0 +1,40 @@
+name: sistema-noticias
+
+replicaCount: 3
+
+image:
+  repository: aluracursos/sistema-noticias
+  tag: "1"
+
+service:
+  type: NodePort
+  port: 80
+  nodePort: 30001
+
+resources:
+  requests:
+    cpu: 10m
+
+data:
+  HOST_DB: db-noticias:3306
+  USER_DB: root
+  PASS_DB: q1w2e3r4
+  DATABASE_DB: empresa
+
+volumes:
+  - name: imagens
+    mountPath: /var/www/html/uploads
+    claim: sistema-noticias-pvc-imagens
+  - name: sessao
+    mountPath: /tmp
+    claim: sistema-noticias-pvc-sessao
+
+livenessProbe:
+  httpGet:
+    path: /
+    port: 80
+
+readinessProbe:
+  httpGet:
+    path: /
+    port: 80

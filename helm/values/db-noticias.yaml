@@ -1,0 +1,26 @@
+name: db-noticias
+
+replicaCount: 1
+
+image:
+  repository: aluracursos/mysql-db
+  tag: "1"
+
+service:
+  type: ClusterIP
+  port: 3306
+
+resources:
+  requests:
+    cpu: 10m
+
+data:
+  MYSQL_ROOT_PASSWORD: q1w2e3r4
+  MYSQL_DATABASE: empresa
+  MYSQL_PASSWORD: q1w2e3r4
+
+volumes: {}
+
+livenessProbe: {}
+
+readinessProbe: {}
